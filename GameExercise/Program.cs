@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 
 namespace GameExercise
 {
-    interface Movable
-    {
-
-    }
     class Creature
     {
         public Creature(int x, int y)
