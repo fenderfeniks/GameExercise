@@ -87,46 +87,34 @@ namespace GameExercise
                         Console.WriteLine(creat);
                         
                     }
-                    else
-                    {
-                        Console.WriteLine("Вы промахнулись");
-                    }
+                   
                 }
-                if (key.Key == ConsoleKey.RightArrow)
+                else if (key.Key == ConsoleKey.RightArrow)
                 {
                     if (X + 1 == creature.X)
                     {
                         Console.WriteLine(creat);
                         creature.IsAlive = false;
                     }
-                    else
-                    {
-                        Console.WriteLine("Вы промахнулись");
-                    }
+                    
                 }
-                if (key.Key == ConsoleKey.UpArrow)
+                else if (key.Key == ConsoleKey.UpArrow)
                 {
                     if (Y + 1 == creature.Y)
                     {
                         Console.WriteLine(creat);
                         creature.IsAlive = false;
                     }
-                    else
-                    {
-                        Console.WriteLine("Вы промахнулись");
-                    }
+                    
                 }
-                if (key.Key == ConsoleKey.DownArrow)
+                else if (key.Key == ConsoleKey.DownArrow)
                 {
                     if (Y - 1 == creature.Y)
                     {
                         Console.WriteLine(creat);
                         creature.IsAlive = false;
                     }
-                    else
-                    {
-                        Console.WriteLine("Вы промахнулись");
-                    }
+                   
                 }               
             }           
         }

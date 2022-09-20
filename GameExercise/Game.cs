@@ -24,7 +24,6 @@ namespace GameExercise
             Creature[,] gameSquare = CreateGameSqeare();
             GameProcess(gameSquare);
             Restart(gameSquare);
-            Console.ReadLine();
         }
         private void GameProcess(Creature[,] gameSquare)
         {           
@@ -99,7 +98,7 @@ namespace GameExercise
                 Console.WriteLine("Желаете сыграть еще раз?");
                 Console.WriteLine("Если хотите переиграть введите Да или +");
                 string decision = Console.ReadLine();
-                if (decision.Equals("Да", StringComparison.OrdinalIgnoreCase) && decision.Equals("+"))
+                if (decision.Equals("Да", StringComparison.OrdinalIgnoreCase) || decision.Equals("+"))
                 {
                     GetGameSquare();
                     gameSquare = CreateGameSqeare();
