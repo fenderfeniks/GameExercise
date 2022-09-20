@@ -3,8 +3,7 @@
 namespace GameExercise
 {
     class Vampire : Creature
-    {
-        
+    {      
         public Vampire(int x, int y) : base(x, y) { }
 
         Random random = new Random();      
