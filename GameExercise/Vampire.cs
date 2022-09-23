@@ -53,39 +53,47 @@ namespace GameExercise
         }*/
         public Creature[,] Move(Creature[,] gameSquare)
         {
-            int x = random.Next(0, 1);
-            int y = random.Next(0, 1);
-            if (x == 0)
+            int randomX = random.Next(0, 1);
+            int randomY = random.Next(0, 1);
+            //Если равен 0, то вампри не ходит по Х
+            if (randomX != 0)
             {
-                if (X != 0)
+                if (randomX == 0)
                 {
-                    X--;
+                    if (X != 0)
+                    {
+                        X--;
+                    }
                 }
-            }
-            else
-            {
-                if (X != gameSquare.GetLength(1) - 1)
+                else
                 {
-                    X++;
-                }
+                    if (X != gameSquare.GetLength(1) - 1)
+                    {
+                        X++;
+                    }
 
-            }
-
-            if (y == 0)
-            {
-                if (Y != 0)
-                {
-                    Y--;
                 }
             }
-            else
+            //Если равен 0, то вампри не ходит по Y  
+            if (randomY != 0)
             {
-                if (Y != gameSquare.GetLength(0) - 1)
+                if (randomY == 0)
                 {
-                    Y++;
+                    if (Y != 0)
+                    {
+                        Y--;
+                    }
                 }
+                else
+                {
+                    if (Y != gameSquare.GetLength(0) - 1)
+                    {
+                        Y++;
+                    }
 
+                }
             }
+            
             gameSquare[Y, X] = this;
             return gameSquare;
         }

@@ -67,56 +67,58 @@ namespace GameExercise
             list.Add(pit);
             foreach (Creature creature in list)
             {
-                string creat;
-                if (creature is Vampire)
+                if (creature != null)
                 {
-                    creat = "Вы убили вампира";
-                }
-                else if (creature is Bat)
-                {
-                    creat = "Вы убили летучую мышь";
-                }
-                else
-                {
-                    creat = "Вы закопали яму";
-                }
-                if (key.Key == ConsoleKey.LeftArrow)
-                {
-                    if (X - 1 == creature.X)
+                    string creat;
+                    if (creature is Vampire)
                     {
-                        Console.WriteLine(creat);
-                        
+                        creat = "Вы убили вампира";
                     }
-                   
-                }
-                else if (key.Key == ConsoleKey.RightArrow)
-                {
-                    if (X + 1 == creature.X)
+                    else if (creature is Bat)
                     {
-                        Console.WriteLine(creat);
-                        creature.IsAlive = false;
+                        creat = "Вы убили летучую мышь";
                     }
-                    
-                }
-                else if (key.Key == ConsoleKey.UpArrow)
-                {
-                    if (Y + 1 == creature.Y)
+                    else
                     {
-                        Console.WriteLine(creat);
-                        creature.IsAlive = false;
+                        creat = "Вы закопали яму";
                     }
-                    
-                }
-                else if (key.Key == ConsoleKey.DownArrow)
-                {
-                    if (Y - 1 == creature.Y)
+                    if (key.Key == ConsoleKey.LeftArrow)
                     {
-                        Console.WriteLine(creat);
-                        creature.IsAlive = false;
+                        if (X - 1 == creature.X)
+                        {
+                            Console.WriteLine(creat);
+                            creature.IsAlive = false;
+                        }
+
                     }
-                   
-                }               
-            }           
+                    else if (key.Key == ConsoleKey.RightArrow)
+                    {
+                        if (X + 1 == creature.X)
+                        {
+                            Console.WriteLine(creat);
+                            creature.IsAlive = false;
+                        }
+
+                    }
+                    else if (key.Key == ConsoleKey.UpArrow)
+                    {
+                        if (Y - 1 == creature.Y)
+                        {
+                            Console.WriteLine(creat);
+                            creature.IsAlive = false;
+                        }
+
+                    }
+                    else if (key.Key == ConsoleKey.DownArrow)
+                    {
+                        if (Y + 1 == creature.Y)
+                        {
+                            Console.WriteLine(creat);
+                            creature.IsAlive = false;
+                        }
+                    }
+                }
+            }
         }
     }
 }

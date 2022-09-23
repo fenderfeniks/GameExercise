@@ -53,7 +53,7 @@ namespace GameExercise
                 CheckingForTeleport(player, gameSquare, bat);
                 CheckingPlayerPosition(player, vampire, bat, pit);
 
-                Console.WriteLine("Вы можете передвигаться используя клавиши W A S D и атаковать используя клавиши " + '\u2190' + '\u2191' + '\u2192' + '\u2193');
+                Console.WriteLine("Вы можете передвигаться используя клавиши W A S D и атаковать используя клавиши \u2190 \u2191 \u2192 \u2193");
                 Console.WriteLine("Сделайте свой ход");
                 ConsoleKeyInfo key = Console.ReadKey();
                 if (key.Key == ConsoleKey.A
@@ -74,14 +74,23 @@ namespace GameExercise
                         Console.WriteLine("Вы победили!");
                         break;
                     }
-                    if (!bat.IsAlive)
+                    if(bat != null)
                     {
-                        gameSquare[bat.Y, bat.X] = new Creature(bat.X, bat.Y);
+                        if (!bat.IsAlive)
+                        {
+                            gameSquare[bat.Y, bat.X] = new Creature(bat.X, bat.Y);
+                            bat = null;
+                        }
                     }
-                    if (!pit.IsAlive)
+                    if(pit != null)
                     {
-                        gameSquare[pit.Y, pit.X] = new Creature(pit.X, pit.Y);
+                        if (!pit.IsAlive)
+                        {
+                            gameSquare[pit.Y, pit.X] = new Creature(pit.X, pit.Y);
+                            pit = null;
+                        }
                     }
+                    
 
                 }
                 else
@@ -97,7 +106,7 @@ namespace GameExercise
             {
                 Console.WriteLine("Желаете сыграть еще раз?");
                 Console.WriteLine("Если хотите переиграть введите Да или +");
-                string decision = Console.ReadLine();
+                string decision = (string)Console.ReadLine().Trim();
                 if (decision.Equals("Да", StringComparison.OrdinalIgnoreCase) || decision.Equals("+"))
                 {
                     GetGameSquare();
@@ -112,24 +121,35 @@ namespace GameExercise
         }
         private void CheckingPlayerAliveStatus(Player player, Vampire vampire, Pit pit1)
         {
-            if (player.X == vampire.X && player.Y == vampire.Y
-                || player.X == pit1.X && player.Y == pit1.Y)
-            {
-                player.IsAlive = false;
-                Console.WriteLine("Вы умерли");
+            if(pit1 != null) {
+                if (player.X == pit1.X && player.Y == pit1.Y)
+                {
+                    player.IsAlive = false;
+                    Console.WriteLine("Вы умерли");
+                }
+            }           
+            if (player.X == vampire.X && player.Y == vampire.Y) {
+                    player.IsAlive = false;
+                    Console.WriteLine("Вы умерли");
             }
+          
+            
         }
-        private void CheckingForTeleport(Player player, Creature[,] gameSquare, Bat bat1)
-        {
-            if (player.X == bat1.X && player.Y == bat1.Y)
+        private void CheckingForTeleport(Player player, Creature[,] gameSquare, Bat bat)
+        {   
+            if (bat != null)
             {
-                Console.WriteLine("Вы наступили на летучую мышь, принудительная телепортация!");
-                gameSquare[player.Y, player.X] = new PlayerWasHere(player.Y, player.X);
-                player.X = RandomWidth();
-                player.Y = RandomHeight();
-                gameSquare[player.Y, player.X] = player;
-            }
-
+                if (player.X == bat.X && player.Y == bat.Y)
+                {
+                    Console.WriteLine("Вы наступили на летучую мышь, принудительная телепортация!");
+                    gameSquare[player.Y, player.X] = new PlayerWasHere(player.Y, player.X);
+                    player.X = RandomWidth();
+                    player.Y = RandomHeight();
+                    gameSquare[player.Y, player.X] = player;
+                    Console.Clear();
+                    PrintGameSquare(gameSquare);
+                }
+            }           
         }
         private void CheckingPlayerPosition(Player player, Vampire vampire, Bat bat, Pit pit)
         {
@@ -139,38 +159,43 @@ namespace GameExercise
             list.Add(pit);
             foreach (Creature creature in list)
             {
-                string message;
-                if (creature is Vampire)
+                if(creature != null)
                 {
-                    message = "Вы чувствуете вонь";
+                    string message;
+                    if (creature is Vampire)
+                    {
+                        message = "Вы чувствуете вонь";
 
-                }
-                else if (creature is Bat)
-                {
-                    message = "Вы слышите шелест";
-                }
-                else
-                {
-                    message = "Вы чувствуете сквозняк";
+                    }
+                    else if (creature is Bat)
+                    {
+                        message = "Вы слышите шелест";
+                    }
+                    else
+                    {
+                        message = "Вы чувствуете сквозняк";
 
-                }
+                    }
 
 
-                if (player.X + 1 == creature.X && player.Y + 1 == creature.Y
-                    || player.X + 1 == creature.X && player.Y - 1 == creature.Y)
-                {
-                    Console.WriteLine(message);
-                }
-                else if (player.X - 1 == creature.X && player.Y + 1 == creature.Y
-                    || player.X - 1 == creature.X && player.Y - 1 == creature.Y)
-                {
-                    Console.WriteLine(message);
-                }
-                else if (player.X == creature.X && player.Y + 1 == creature.Y
-                    || player.X == creature.X && player.Y + 1 == creature.Y)
-                {
-                    Console.WriteLine(message);
-                }
+                    if (player.X + 1 == creature.X && player.Y + 1 == creature.Y
+                        || player.X + 1 == creature.X && player.Y - 1 == creature.Y
+                        || player.X + 1 == creature.X && player.Y == creature.Y)
+                    {
+                        Console.WriteLine(message);
+                    }
+                    else if (player.X - 1 == creature.X && player.Y + 1 == creature.Y
+                        || player.X - 1 == creature.X && player.Y - 1 == creature.Y
+                        || player.X - 1 == creature.X && player.Y == creature.Y)
+                    {
+                        Console.WriteLine(message);
+                    }
+                    else if (player.X == creature.X && player.Y + 1 == creature.Y
+                        || player.X == creature.X && player.Y - 1 == creature.Y)
+                    {
+                        Console.WriteLine(message);
+                    }
+                }                
             }
         }
         private void PrintGameSquare(Creature[,] gameSquare)
